@@ -5,14 +5,13 @@ import {signup} from "../api/user";
 
 // 회원가입 페이지
 export default function SignUp() {
-    const [_, setCookie] = useCookies(["uuid"]);
     const navigate = useNavigate();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     async function requestSignUp() {
-        const {message, data} = await signup(username, password);
+        const {message} = await signup(username, password);
         if (message === "error") {
             alert("회원 가입에 실패했습니다.");
             return;

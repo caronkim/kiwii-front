@@ -19,8 +19,8 @@ export default function Login() {
             return;
         }
 
-        setCookie("uuid", data.uuid, {path: "/", maxAge: 1800});
-        setCookie("username", data.username, {path: "/", maxAge: 1800});
+        setCookie("uuid", data.uuid, {maxAge: 1800});
+        setCookie("username", data.username, {maxAge: 1800});
         navigate("/");
     }
 
