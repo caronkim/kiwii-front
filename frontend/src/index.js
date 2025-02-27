@@ -8,11 +8,11 @@ import {CookiesProvider} from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <CookiesProvider>
-            <App/>
-        </CookiesProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <CookiesProvider>
+        <App/>
+    </CookiesProvider>
+    // </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
