@@ -1,0 +1,38 @@
+.record-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 5px 0;
+    background-color: #f5f5f5;
+}
+
+.rank {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.word {
+    flex-grow: 1;
+}
+
+.similarity {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+.similarity.positive {
+    color: blue;
+    background-color: #e3f2fd;
+}
+
+.similarity.negative {
+    color: red;
+    background-color: #ffebee;
+}
+
+.similarity.neutral {
+    color: gray;
+}
