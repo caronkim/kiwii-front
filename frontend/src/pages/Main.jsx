@@ -1,6 +1,7 @@
 // 메인 페이지
 
 import {Link} from "react-router-dom";
+import {useCookies} from "react-cookie";
 import pointIcon from "../assets/point.png"
 import rankIcon from "../assets/rank.png"
 import kidleLogo from "../assets/kidle.png"
@@ -9,6 +10,8 @@ import kidleLogo from "../assets/kidle.png"
 // import quizLogo from "../assets/quiz.png"
 
 export default function Main() {
+    const [cookies] = useCookies(["uuid"]); // userId 쿠키 가져오기
+    console.log(cookies);
     return (
         <div className="bg-gray-100 w-screen h-screen flex flex-col px-[0.625rem] pt-[0.625rem] pb-[1.875rem] gap-[0.625rem]">
             <div className="flex flex-row p-[0.625rem] text-xl">

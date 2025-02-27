@@ -248,7 +248,7 @@ export default function Kidle() {
             </div>
             {/*content*/}
             <div
-                className="flex flex-1 flex-col justify-start items-start self-stretch flex-shrink-0 scro gap-2.5 bg-white">
+                className="flex flex-1 flex-col justify-start items-center self-stretch flex-shrink-0 scro gap-2.5 bg-white">
                 <div
                     className="flex items-center justify-center self-stretch  relative overflow-hidden gap-2.5 px-2.5 bg-transparent">
                     <p className=" text-2xl text-center text-black">
@@ -256,7 +256,7 @@ export default function Kidle() {
                     </p>
                 </div>
                 <div
-                    className="flex w-full flex-col justify-start items-start  overflow-hidden gap-1.5 p-2.5 bg-white">
+                    className="flex w-full max-w-[700px] flex-col justify-start items-start  overflow-hidden gap-1.5 p-2.5 bg-white">
                     {[0, 1, 2, 3, 4, 5].map(index => {
                         if (index < wordleTrials.length) {
                             let curWordleTrial = wordleTrials[index];
