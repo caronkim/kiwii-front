@@ -2,10 +2,11 @@
 import {useEffect, useState} from "react";
 import {getWordleQuiz, getWordleTrials, postWordleTrial} from "../api/kidle";
 import {useNavigate} from "react-router-dom";
+import {useCookies} from "react-cookie";
 
 export default function Kidle() {
-    // todo:: userId
-    const userId = 1;
+    const [cookies] = useCookies(["uuid"]);
+    const userId = parseInt(cookies.uuid);
 
     const navigate = useNavigate();
     const [quizId, setQuizId] = useState(null);
@@ -217,9 +218,8 @@ export default function Kidle() {
                 navigate(-1);
             }
         }
-
         fetchData();
-    }, [navigate]);
+    }, []);
 
     return (<div
             className="flex h-full flex-col justify-start items-start self-stretch flex-grow gap-5 p-2.5 bg-transparent">

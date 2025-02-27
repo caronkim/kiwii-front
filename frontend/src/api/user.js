@@ -20,3 +20,9 @@ export async function login(username, password) {
         return response.data
     });
 }
+
+export async function getMyInfo() {
+    return api.get("/api/user/information").then((response) => {
+        return response.data;
+    })
+}
