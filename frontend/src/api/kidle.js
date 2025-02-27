@@ -1,7 +1,5 @@
 import api from "./api";
 
-let server = process.env.REACT_APP_SERVER_URL;
-
 export async function getWordleQuiz() {
     return api.get(`/api/wordle-quizzes`).then((response) => {
         return response.data
