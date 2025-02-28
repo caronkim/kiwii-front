@@ -31,7 +31,11 @@ export default function PointHistory() {
                 alert("something wrong");
                 return;
             }
+            pointHistoryData.sort((a, b) => {
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+            });
             console.log("server data", pointHistoryData);
+
             let newPointHistories = {};
             for (let pointHistory of pointHistoryData) {
                 let date = new Date(pointHistory.createdAt);
@@ -121,7 +125,7 @@ export default function PointHistory() {
             <div
                 className="flex justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 bg-transparent">
                 <p className="flex-grow-0 flex-shrink-0 text-xl font-semibold text-center text-black">
-                    사용내역
+                    전체 내역
                 </p>
             </div>
             <div

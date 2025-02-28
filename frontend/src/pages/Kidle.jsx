@@ -1,5 +1,5 @@
 // Kidle 페이지
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {getWordleQuiz, getWordleTrials, postWordleTrial} from "../api/kidle";
 import {useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
@@ -9,6 +9,7 @@ export default function Kidle() {
     const userId = parseInt(cookies.uuid);
 
     const navigate = useNavigate();
+    const isProcessing = useRef(false);
     const [quizId, setQuizId] = useState(null);
     const [characterLength, setCharacterLength] = useState(0);
     const [wordleTrials, setWordleTrials] = useState([]);
@@ -99,71 +100,79 @@ export default function Kidle() {
     }
 
     async function clickSubmit() {
-        // 이미 정답
-        if (isAnswer) {
+        if (isProcessing.current) {
             return;
         }
-
-        // 글자수 길이가 안맞는 경우
-        if (newTrial.length !== characterLength) {
-            return;
-        }
-
-        // 시도 횟수를 넘은 경우
-        if (wordleTrials.length >= 6) {
-            return;
-        }
-
-        let {message, data} = await postWordleTrial(userId, quizId, newTrial.toString());
-        if (message === "fail") {
-            setIsValid(false);
-            return;
-        }
-        data.characters = data.characters.split(",");
-        data.strikes = data.strikes.split(",").map(el => parseInt(el));
-        data.balls = data.balls.split(",").map(el => parseInt(el));
-        data.nones = data.nones.split(",").map(el => parseInt(el));
-
-        let newWordleTrial = {
-            characters: data.characters,
-            strikes: data.strikes,
-            balls: data.balls,
-            nones: data.nones
-        };
-        let newStrikes = new Set();
-        let newBalls = new Set();
-        let newNones = new Set();
-        let newIsAnswer = false;
-
-
-        if (data.isAnswer) {
-            newIsAnswer = true;
-        }
-
-        for (let i = 0; i < characterLength; i++) {
-            let curCharacter = data.characters[i];
-            if (data.strikes[i]) {
-                newStrikes.add(curCharacter);
-            } else if (data.balls[i]) {
-                newBalls.add(curCharacter);
-            } else if (data.nones[i]) {
-                newNones.add(curCharacter);
+        isProcessing.current = true;
+        try {
+            // 이미 정답
+            if (isAnswer) {
+                return;
             }
+
+            // 글자수 길이가 안맞는 경우
+            if (newTrial.length !== characterLength) {
+                return;
+            }
+
+            // 시도 횟수를 넘은 경우
+            if (wordleTrials.length >= 6) {
+                return;
+            }
+
+            let {message, data} = await postWordleTrial(userId, quizId, newTrial.toString());
+            if (message === "fail") {
+                setIsValid(false);
+                return;
+            }
+            data.characters = data.characters.split(",");
+            data.strikes = data.strikes.split(",").map(el => parseInt(el));
+            data.balls = data.balls.split(",").map(el => parseInt(el));
+            data.nones = data.nones.split(",").map(el => parseInt(el));
+
+            let newWordleTrial = {
+                characters: data.characters,
+                strikes: data.strikes,
+                balls: data.balls,
+                nones: data.nones
+            };
+            let newStrikes = new Set();
+            let newBalls = new Set();
+            let newNones = new Set();
+            let newIsAnswer = false;
+
+
+            if (data.isAnswer) {
+                newIsAnswer = true;
+            }
+
+            for (let i = 0; i < characterLength; i++) {
+                let curCharacter = data.characters[i];
+                if (data.strikes[i]) {
+                    newStrikes.add(curCharacter);
+                } else if (data.balls[i]) {
+                    newBalls.add(curCharacter);
+                } else if (data.nones[i]) {
+                    newNones.add(curCharacter);
+                }
+            }
+            setWordleTrials((prev) => {
+                return [...prev, newWordleTrial];
+            });
+            setStrikes((prev) => {
+                return newStrikes.union(prev);
+            });
+            setBalls((prev) => {
+                return newBalls.union(prev);
+            });
+            setNones((prev) => {
+                return newNones.union(prev);
+            });
+            setNewTrial([]);
+            setIsAnswer(newIsAnswer);
+        } finally {
+            isProcessing.current = false;
         }
-        setWordleTrials((prev) => {
-            return [...prev, newWordleTrial];
-        });
-        setStrikes((prev) => {
-            return newStrikes.union(prev);
-        });
-        setBalls((prev) => {
-            return newBalls.union(prev);
-        });
-        setNones((prev) => {
-            return newNones.union(prev);
-        });
-        setNewTrial([]);
-        setIsAnswer(newIsAnswer);
     }
 
     useEffect(() => {
