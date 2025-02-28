@@ -84,7 +84,7 @@ export default function Main() {
                             랭킹
                         </div>
                         <div className="font-semibold">
-                            ?????? 위 (todo)
+                            {user.rank}위
                         </div>
                     </div>
                 </Link>
