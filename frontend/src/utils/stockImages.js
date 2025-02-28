@@ -9,7 +9,6 @@ import lgImage from "../assets/stock/lg.png";
 import naverImage from "../assets/stock/naver.png";
 import samsungImage from "../assets/stock/samsung.png";
 
-// todo:: 서버 네이밍 맞추기
 export const STOCK_IMAGES = {
     "다우기술": daouImage,
     "한화": hanwhaImage,

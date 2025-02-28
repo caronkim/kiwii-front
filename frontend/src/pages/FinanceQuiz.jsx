@@ -76,16 +76,17 @@ export default function FinanceQuiz() {
             }
 
             if (message === "no point") {
-                point = 0;
+                alert("포인트를 얻지 못했어요.");
+                navigate(-1);
+                return;
             }
 
-            // todo:: modal 변경
-            alert(`${point} 포인트를 획득했습니다!`);
-            navigate(-1);
+            navigate(`/game-result`, {
+                replace: true, state: {point: point, headerTitle: "금융 퀴즈"}
+            });
         } finally {
             isProcessing.current = false;
         }
-
     }
 
     useEffect(() => {
