@@ -50,7 +50,7 @@ export default function PointHistory() {
 
             let newPointHistories = {};
             for (let pointHistory of pointHistoryData) {
-                let date = new Date(pointHistory.createdAt);
+                let date = new Date(pointHistory?.createdAt);
                 let dateKey = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
                 if (!newPointHistories[dateKey]) {
                     newPointHistories[dateKey] = [];
@@ -154,23 +154,23 @@ export default function PointHistory() {
                                                  className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">
                                                 <img
                                                     alt={"포인트"}
-                                                    src={selectPointHistoryImage(pointHistory.content)}
+                                                    src={selectPointHistoryImage(pointHistory?.content ?? "")}
                                                     className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px] bg-cover bg-no-repeat bg-center"/>
                                                 <div
                                                     className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">
                                                     <div
                                                         className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">
                                                         <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">
-                                                            {pointHistory.content}
+                                                            {pointHistory?.content ?? ""}
                                                         </p>
-                                                        <p className={`flex-grow-0 flex-shrink-0 text-base font-semibold text-left ${pointHistoryAmountTextColor(pointHistory.amount)}`}>
-                                                            {pointHistory.amount}P
+                                                        <p className={`flex-grow-0 flex-shrink-0 text-base font-semibold text-left ${pointHistoryAmountTextColor(pointHistory?.amount ?? 0)}`}>
+                                                            {pointHistory?.amount ?? 0}P
                                                         </p>
                                                     </div>
                                                     <div
                                                         className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">
                                                         <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">
-                                                            {new Date(pointHistory.createdAt).toLocaleDateString('en-US', {
+                                                            {new Date(pointHistory?.createdAt).toLocaleDateString('en-US', {
                                                                 hour: '2-digit',
                                                                 minute: '2-digit',
                                                                 hour12: true
