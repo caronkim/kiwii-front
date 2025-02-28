@@ -1,10 +1,8 @@
 import api from "./api";
 
 export async function getKimantleTrials(userId) {
-    let params = new URLSearchParams({
-        uuid: userId
-    })
-    return api.get(`/api/kimantle?${params.toString()}`, {}).then((response) => {
+    return api.get(`/api/kimantle`, {}).then((response) => {
+        console.log(response)
         return response.data
     });
 }
