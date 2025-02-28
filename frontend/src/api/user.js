@@ -26,3 +26,9 @@ export async function getMyInfo() {
         return response.data;
     })
 }
+
+export async function getRanking() {
+    return api.get(`/api/user/daily-rank`).then((response) => {
+        return response.data;
+    })
+}

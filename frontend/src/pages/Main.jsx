@@ -1,13 +1,14 @@
 // 메인 페이지
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {useCookies} from "react-cookie";
+import {Link, useNavigate} from "react-router-dom";
 import pointIcon from "../assets/point.png";
 import rankIcon from "../assets/rank.png";
 import kidleLogo from "../assets/kidle.png";
 import {getMyInfo} from "../api/user";
 
 export default function Main() {
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({});
 
     useEffect(() => {
@@ -33,7 +34,7 @@ export default function Main() {
                 <div className="font-normal">님 환영합니다!</div>
             </div>
             <div className="flex flex-col bg-white w-full h-auto gap-[0.625rem] p-[0.625rem] rounded-[1.875rem]">
-                <Link to="/point" className="flex flex-row p-[0.625rem] gap-[0.625rem]">
+                <div onClick={() => navigate("/point")} className="flex flex-row p-[0.625rem] gap-[0.625rem]">
                     {/* 포인트 로고 */}
                     <div className="h-full aspect-square rounded-[100%] bg-[#fad265] p-[0.3rem]">
                         <img src={pointIcon} alt="pointIcon" className="w-full h-full"/>
@@ -46,7 +47,33 @@ export default function Main() {
                             {user.point?.toLocaleString() ?? "0"} P
                         </div>
                     </div>
-                </Link>
+
+                    <div onClick={(e) => {
+                        e.stopPropagation();
+                        navigate("/draw");
+                    }}
+                          className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative overflow-hidden gap-[5px] px-2.5 py-[5px] rounded-[20px] bg-red-500">
+                        <svg
+                            width={25}
+                            height={26}
+                            viewBox="0 0 25 26"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="flex-grow-0 flex-shrink-0 w-[25px] h-[25px] relative"
+                            preserveAspectRatio="xMidYMid meet"
+                        >
+                            <path
+                                d="M20.8334 7.79167L12.5001 3.625L4.16675 7.79167M20.8334 7.79167L12.5001 11.9583M20.8334 7.79167V18.2083L12.5001 22.375M4.16675 7.79167L12.5001 11.9583M4.16675 7.79167V18.2083L12.5001 22.375M12.5001 11.9583V22.375"
+                                stroke="white"
+                                strokeWidth={2}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                        <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-white">주식 뽑기</p>
+                    </div>
+
+                </div>
                 <Link to="/rank" className="flex flex-row p-[0.625rem] gap-[0.625rem]">
                     {/* 랭킹 로고 */}
                     <div className="h-full aspect-square rounded-[100%] bg-[#a0eeab] p-[0.3rem]">
@@ -57,7 +84,7 @@ export default function Main() {
                             랭킹
                         </div>
                         <div className="font-semibold">
-                            ?????? 위 (todo)
+                            {user.rank}위
                         </div>
                     </div>
                 </Link>

@@ -11,6 +11,7 @@ import SignUp from "../pages/SignUp"
 import Ranking from "../pages/Ranking";
 import PointHistory from "../pages/PointHistory";
 import ProtectedRoute from "./ProtectedRoute";
+import GameResult from "../pages/GameResult";
 
 
 const Router = () => {
@@ -28,6 +29,7 @@ const Router = () => {
                     <Route path="/draw" element={<StockDraw/>}/>
                     <Route path="/point" element={<PointHistory/>}/>
                     <Route path="/rank" element={<Ranking/>}/>
+                    <Route path="/game-result" element={<GameResult />}/>
                 </Route>
             </Routes>
         </BrowserRouter>

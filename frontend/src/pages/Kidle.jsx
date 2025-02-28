@@ -169,7 +169,13 @@ export default function Kidle() {
                 return newNones.union(prev);
             });
             setNewTrial([]);
-            setIsAnswer(newIsAnswer);
+
+            if (newIsAnswer) {
+                // todo:: 서버와 데이터 맞추기
+                navigate(`/game-result`, {
+                    replace: true, state: {point: 200, headerTitle: "Kidle"}
+                });
+            }
         } finally {
             isProcessing.current = false;
         }

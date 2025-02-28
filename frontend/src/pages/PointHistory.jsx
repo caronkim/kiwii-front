@@ -3,6 +3,8 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getMyInfo} from "../api/user";
 import {getPointHistories} from "../api/point";
+import {STOCK_IMAGES} from "../utils/stockImages";
+import goldImage from "../assets/gold.png";
 
 export default function PointHistory() {
     const navigate = useNavigate();
@@ -14,6 +16,16 @@ export default function PointHistory() {
             return "text-blue-500";
         } else {
             return "text-red-500";
+        }
+    }
+
+    function selectPointHistoryImage(content) {
+        const match = content.match(/랜덤 주식 뽑기 (.+)/);
+        const stockName = match ? match[1] : "";
+        if (stockName !== "") {
+            return STOCK_IMAGES[stockName];
+        } else {
+            return goldImage;
         }
     }
 
@@ -140,10 +152,10 @@ export default function PointHistory() {
                                         return (
                                             <div key={`point-history-${pointHistory.id}`}
                                                  className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">
-                                                <div
-                                                    className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px]  bg-cover bg-no-repeat bg-center">
-                                                    이미지 필요
-                                                </div>
+                                                <img
+                                                    alt={"포인트"}
+                                                    src={selectPointHistoryImage(pointHistory.content)}
+                                                    className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px] bg-cover bg-no-repeat bg-center"/>
                                                 <div
                                                     className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">
                                                     <div
@@ -174,190 +186,6 @@ export default function PointHistory() {
                     })
 
                 }
-
-                {/*<div*/}
-                {/*    className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">*/}
-                {/*    <div*/}
-                {/*        className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px]  bg-cover bg-no-repeat bg-center"/>*/}
-                {/*    <div*/}
-                {/*        className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">*/}
-                {/*                엔비디아*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-red-500">*/}
-                {/*                -500P*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                0.119주*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                10:00AM*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div*/}
-                {/*    className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">*/}
-                {/*    <div*/}
-                {/*        className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px]  bg-cover bg-no-repeat bg-center"/>*/}
-                {/*    <div*/}
-                {/*        className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">*/}
-                {/*                애플*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-red-500">*/}
-                {/*                -500P*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                0.119주*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                10:00AM*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div*/}
-                {/*    className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">*/}
-                {/*    <div*/}
-                {/*        className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px]  bg-cover bg-no-repeat bg-center"/>*/}
-                {/*    <div*/}
-                {/*        className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">*/}
-                {/*                AMD*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-red-500">*/}
-                {/*                -500P*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                0.119주*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                10:00AM*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<p className="flex-grow-0 flex-shrink-0 text-xs text-left text-zinc-400">1월 31일</p>*/}
-                {/*<div*/}
-                {/*    className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">*/}
-                {/*    <div*/}
-                {/*        className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px]  bg-cover bg-no-repeat bg-center"/>*/}
-                {/*    <div*/}
-                {/*        className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">*/}
-                {/*                Meta*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-red-500">*/}
-                {/*                -500P*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                0.119주*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                10:00AM*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div*/}
-                {/*    className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">*/}
-                {/*    <div*/}
-                {/*        className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px]  bg-cover bg-no-repeat bg-center"/>*/}
-                {/*    <div*/}
-                {/*        className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">*/}
-                {/*                테슬라*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-red-500">*/}
-                {/*                -500P*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                0.119주*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                10:00AM*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div*/}
-                {/*    className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">*/}
-                {/*    <div*/}
-                {/*        className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px]  bg-cover bg-no-repeat bg-center"/>*/}
-                {/*    <div*/}
-                {/*        className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">*/}
-                {/*                테슬라*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-red-500">*/}
-                {/*                -500P*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                0.119주*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                10:00AM*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div*/}
-                {/*    className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">*/}
-                {/*    <div*/}
-                {/*        className="flex-grow-0 flex-shrink-0 w-[50px] h-[50px] relative overflow-hidden rounded-[100px]  bg-cover bg-no-repeat bg-center"/>*/}
-                {/*    <div*/}
-                {/*        className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">*/}
-                {/*                테슬라*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-red-500">*/}
-                {/*                -500P*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*        <div*/}
-                {/*            className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                0.119주*/}
-                {/*            </p>*/}
-                {/*            <p className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-left text-zinc-500">*/}
-                {/*                10:00AM*/}
-                {/*            </p>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
         </div>
     )

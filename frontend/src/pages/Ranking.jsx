@@ -1,40 +1,49 @@
 // 랭킹 페이지
-import {useEffect, useState} from "react";
+
 import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {getMyInfo, getRanking} from "../api/user";
+import {getPointHistories} from "../api/point";
+import {medalImages} from "../utils/medalImages";
 import rankIcon from "../assets/rank.png";
-import {getMyInfo} from "../api/user";
 
 export default function Ranking() {
     const navigate = useNavigate();
     const [user, setUser] = useState({});
+    const [ranks, setRanks] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
-            let {message, data} = await getMyInfo();
-
-            if (message === "error") {
+            let {message: myInfoMessage, data: myInfoData} = await getMyInfo();
+            if (myInfoMessage !== "success") {
                 alert("something wrong");
                 return;
             }
 
-            setUser(data);
+            setUser(myInfoData);
+
+            let {message: rankMessage, data: rankData} = await getRanking();
+            if (rankMessage !== "success") {
+                alert("something wrong");
+            }
+            setRanks(rankData);
         }
 
         fetchData();
     }, [])
 
     return (
-        <div className="w-screen h-screen flex flex-col px-[0.625rem] pt-[0.625rem] pb-[1.875rem] gap-[0.625rem]">
+        <div className="flex flex-col justify-start items-start self-stretch flex-grow gap-2.5 p-2.5 bg-transparent">
             {/*header*/}
             <div
-                className="flex justify-start items-center relative gap-2.5 p-2.5 bg-transparent">
+                className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 bg-transparent">
                 <svg
                     width={24}
                     height={24}
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className=" w-6 h-6 relative"
+                    className="flex-grow-0 flex-shrink-0 w-6 h-6 relative"
                     preserveAspectRatio="none"
                     onClick={() => navigate(-1)}
                 >
@@ -46,30 +55,69 @@ export default function Ranking() {
                         strokeLinejoin="round"
                     />
                 </svg>
-                <p className="text-xl font-semibold text-center text-black">랭킹</p>
+                <p className="flex-grow-0 flex-shrink-0 text-xl font-semibold text-center text-black">포인트</p>
             </div>
-            {/* content */}
-            <div className="flex flex-col p-[0.625rem] gap-[1.875rem]">
-            <div className="flex flex-row p-[0.625rem] text-xl">
-                <div className="font-semibold">{user.username ?? ""}</div>
-                <div className="font-normal">님 환영합니다!</div>
+            {/*content*/}
+            {/*title*/}
+            <div
+                className="flex justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 bg-transparent">
+                <p className="flex-grow-0 flex-shrink-0 text-xl text-center text-black">
+                    <span className="flex-grow-0 flex-shrink-0 text-xl font-semibold text-center text-black">
+                      {user.username ?? ""}
+                    </span>
+                    <span className="flex-grow-0 flex-shrink-0 text-xl text-center text-black">님의 현재 랭킹</span>
+                </p>
             </div>
-                <div className="flex flex-row p-[0.625rem] gap-[0.625rem]">
-                    {/* 랭킹 로고 */}
-                    <div className="h-full aspect-square rounded-[100%] bg-[#a0eeab] p-[0.3rem]">
-                        <img src={rankIcon} alt="rankIcon" className="w-full h-full"/>
+            <div
+                className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-2.5 p-2.5 bg-white">
+                <div
+                    className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 h-[60px] overflow-hidden gap-2.5 p-2.5 bg-white">
+                    <div
+                        className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 h-full relative overflow-hidden gap-2.5 rounded-[100px] bg-[#a0eeab]">
+                        <div className="h-full aspect-square rounded-[100%] bg-[#a0eeab] p-[0.3rem]">
+                            <img src={rankIcon} alt="rankIcon" className="w-full h-full"/>
+                        </div>
                     </div>
-                    <div className="flex flex-row p-[0.625rem] gap-[0.625rem] w-full">
-                        <div className="font-normal">
-                            랭킹
-                        </div>
-                        <div className="font-semibold">
-                            ?????? 위 (todo)
-                        </div>
+                    <div
+                        className="flex justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 bg-white">
+                        <p className="flex-grow-0 flex-shrink-0 text-base text-left text-black">랭킹</p>
+                        <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">
+                            {user?.rank?.toLocaleString()} 위
+                        </p>
                     </div>
                 </div>
             </div>
-
+            {/*ranking*/}
+            <div
+                className="flex justify-start items-start flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 bg-transparent">
+                <p className="flex-grow-0 flex-shrink-0 text-xl font-semibold text-center text-black">
+                    상위 랭킹 유저
+                </p>
+            </div>
+            <div
+                className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 rounded-[10px] bg-white">
+                {
+                    ranks.map((rank, i) => {
+                        return (
+                            <div key={`rank-row-${i}`}
+                                 className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-[5px] rounded-[10px] bg-white">
+                                <img alt="medal" src={medalImages(rank.rank)} className="w-[50px] h-[50px] border-0"/>
+                                <div
+                                    className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5 bg-transparent">
+                                    <div
+                                        className="flex justify-between items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden bg-transparent">
+                                        <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-black">
+                                            {rank.username}
+                                        </p>
+                                        <p className="flex-grow-0 flex-shrink-0 text-base font-semibold text-left text-blue-500">
+                                            {rank.totalEarnedPoints.toLocaleString()}P
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>)
+                    })
+                }
+            </div>
         </div>
     )
 }
