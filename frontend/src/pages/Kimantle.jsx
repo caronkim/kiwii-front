@@ -17,51 +17,71 @@ export default function Kimantle() {
 
     const fetchKimantle = async () => {
         let result = await getKimantleTrials(userId);
-        console.log("result", result.status)
         if (result.status === "success") {
-            if (result.history) {
-                if (result.history.length == 10) {
-                    setIsEnd(true)
-                }
-                for (let k of result.history) {
-                    if(k.rank == 0) {
-                        setIsEnd(true);
-                        setIsCorrect(true);
-                    }
-                }
-                setLastKeyword(result.history.shift());
+          let correct = false;
+          if (result.history) {
+            if (result.history.length === 10) {
+              setIsEnd(true);
+            }
+            for (let k of result.history) {
+              if (k.rank === 0) {   
+                setIsEnd(true);
+                correct = true;
+              }
+            }
+            if (result.history.length) {
+              setLastKeyword(result.history.shift());
             }
             // 랭크 기준으로 정렬
-            setLastKeywords(result.history.sort((a, b) => b.cosineSimilarity - a.cosineSimilarity))
+            setLastKeywords(result.history.sort((a, b) => b.cosineSimilarity - a.cosineSimilarity));
+          }
+          return correct; // 정답 여부 반환
         } else {
-            alert("통신 불가")
+          alert("통신 불가");
+          return false;
         }
-    }
+      };
+      
 
     useEffect(() => {
-        fetchKimantle();
+        setIsCorrect(fetchKimantle());
     },[])
 
     const handleClick = async () => {
-        const fetchTrial = async () => {
-            let result = await postKimantleTrial(userId, keyword);
-            if (result.status == "success") {
-                await fetchKimantle();
-            } else {
-                alert(result.message);
-                
-            }
-        }
+        let result;
+        // 중복 단어 체크
         for (let k of lastKeywords) {
-            if (k.word == keyword) {
-                alert("이미 시도하셨습니다.");
-                setKeyword("");
-                return;
-            }
+          if (k.word === keyword) {
+            alert("이미 시도하셨습니다.");
+            setKeyword("");
+            return;
+          }
         }
-        fetchTrial();
-        setKeyword("");
-    }
+      
+        const fetchTrial = async () => {
+            result = await postKimantleTrial(userId, keyword);
+            if (result.status === "success") {
+            // 정답 여부를 반환받음
+            console.log("point는 " + result.point)
+            return await fetchKimantle();
+            } else {
+            alert(result.message);
+            return false;
+            }
+        };
+      
+        const isNowCorrect = await fetchTrial();
+      
+        // 최초 정답일 때 navigate
+        if (isNowCorrect) {
+          navigate(`/game-result`, {
+            replace: true,
+            state: { point: result.point, headerTitle: "Kimantle" },
+          });
+        } else {
+          setKeyword("");
+        }
+      };
 
     const handleInputChange = (e) => {
         setKeyword(e.target.value);
