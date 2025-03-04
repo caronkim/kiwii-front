@@ -49,7 +49,7 @@ export default function Kidle() {
 
     function selectKeyboardColor(character) {
         if (strikes.has(character)) {
-            return "bg-green-500 border-green-500";
+            return "bg-green-500 border-2 border-green-500";
         } else if (balls.has(character)) {
             return "bg-yellow-500 border-2 border-yellow-500";
         } else if (nones.has(character)) {
@@ -237,7 +237,7 @@ export default function Kidle() {
     }, []);
 
     return (<div
-            className="flex h-full flex-col justify-start items-start self-stretch flex-grow gap-5 p-2.5 bg-transparent">
+            className="flex w-full min-h-dvh flex-col justify-start items-start self-stretch flex-grow gap-5 p-2.5 bg-transparent">
             {/*header*/}
             <div
                 className="flex justify-start items-center relative gap-2.5 p-2.5 bg-transparent">

@@ -50,7 +50,7 @@ export default function StockDraw() {
 
     return (
         <div
-            className="h-screen w-screen flex flex-col justify-start items-start self-stretch flex-grow overflow-hidden gap-[30px] p-2.5 bg-transparent">
+            className="flex w-full min-h-dvh flex-col justify-start items-start self-stretch flex-grow overflow-hidden gap-[30px] p-2.5 bg-transparent">
             {
                 isLoading ?
                     <Loading/> : <></>
@@ -150,7 +150,9 @@ function AfterStockDrawFooter() {
     return (
         <div
             className="flex min-h-10 w-full justify-center items-center flex-grow-0 flex-shrink-0relative overflow-hidden gap-2.5 p-2.5 rounded-[10px] bg-blue-900"
-        >
+            onClick={() => {
+                alert("coming soon!");
+            }}>
             <img
                 src={kiwoomHerosImage}
                 className="self-stretch flex-grow-0 flex-shrink-0 w-[56.63px] h-[30px] relative overflow-hidden"/>

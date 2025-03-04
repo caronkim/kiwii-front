@@ -3,17 +3,15 @@ import {useState, useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import arrowUp from "../assets/arrow-up.png";
 import arrowDown from "../assets/arrow-down.png";
-import {useCookies} from "react-cookie";
 import {getStockUpDown, postPredictStockUpDown} from "../api/stockUpDown";
 import {STOCK_IMAGES} from "../utils/stockImages";
 
 
 export default function StockUpDown() {
-    const [cookies] = useCookies();
     const navigate = useNavigate();
 
     const isProcessing = useRef(true);
-    const [stock, setStock] = useState("");
+    const [stock, setStock] = useState("다우기술");
     const [selectedAnswer, setSelectedAnswer] = useState(null);
 
     function optionOpacity(option) {
@@ -63,7 +61,7 @@ export default function StockUpDown() {
     }, [])
 
     return (
-        <div className="w-screen h-screen flex flex-col px-[0.625rem] pt-[0.625rem] pb-[1.875rem] gap-[1.875rem]">
+        <div className="flex w-full min-h-dvh flex-col px-[0.625rem] pt-[0.625rem] pb-[1.875rem] gap-[1.875rem]">
             {/*header*/}
             <div
                 className="flex justify-start items-center relative gap-2.5 p-2.5 bg-transparent">

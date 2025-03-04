@@ -22,7 +22,7 @@ export default function SignUp() {
 
     return (
         <div
-            className="flex h-full flex-col justify-start items-start self-stretch flex-grow gap-[30px] p-2.5 bg-transparent">
+            className="flex w-full min-h-dvh flex-col justify-start items-start self-stretch flex-grow gap-[30px] p-2.5 bg-transparent">
             <div
                 className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 bg-transparent">
                 <svg

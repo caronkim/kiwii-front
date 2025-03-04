@@ -120,7 +120,7 @@ export default function FinanceQuiz() {
 
     return (
         <div
-            className="flex w-screen h-screen flex-col justify-start items-start self-stretch flex-grow gap-[30px] p-2.5 bg-transparent">
+            className="flex w-full min-h-dvh flex-col justify-start items-start self-stretch flex-grow gap-[30px] p-2.5 bg-transparent">
             {/*header*/}
             <div
                 className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 bg-transparent">

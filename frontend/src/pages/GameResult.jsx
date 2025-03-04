@@ -8,7 +8,7 @@ export default function GameResult() {
 
     return (
         <div
-            className="h-screen w-screen flex flex-col justify-start items-start self-stretch flex-grow overflow-hidden gap-[30px] p-2.5 bg-transparent">
+            className="flex w-full min-h-dvh flex-col justify-start items-start self-stretch flex-grow overflow-hidden gap-[30px] p-2.5 bg-transparent">
             {/*header*/}
             <div
                 className="flex justify-start items-center relative gap-2.5 p-2.5 bg-transparent">

@@ -66,7 +66,7 @@ export default function PointHistory() {
 
 
     return (
-        <div className="flex flex-col justify-start items-start self-stretch flex-grow gap-2.5 p-2.5 bg-transparent">
+        <div className="flex w-full min-h-dvh flex-col justify-start items-start self-stretch flex-grow gap-2.5 p-2.5 bg-transparent">
             {/*header*/}
             <div
                 className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 p-2.5 bg-transparent">

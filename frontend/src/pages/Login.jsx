@@ -30,9 +30,9 @@ export default function Login() {
     }
 
     return (<div
-        className="flex h-full flex-col justify-center items-center self-stretch flex-grow relative gap-[30px] p-2.5 bg-white">
+        className="flex w-full min-h-dvh flex-col items-center self-stretch flex-grow relative gap-[30px] p-2.5 bg-white">
         <div
-            className="flex-grow-0 flex-shrink-0 w-[150px] h-[60px]">
+            className="flex-grow-0 flex-shrink-0 w-[150px] h-[60px] mt-20">
             <img src={LogoImage} alt="로고" className="w-auto h-auto"/>
         </div>
         <div

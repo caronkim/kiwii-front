@@ -88,7 +88,7 @@ export default function Kimantle() {
     }
 
     return (
-        <div className="w-screen h-screen flex flex-col px-[0.625rem] pt-[0.625rem] pb-[1.875rem] gap-[1.875rem]">
+        <div className="flex w-full min-h-dvh flex-col px-[0.625rem] pt-[0.625rem] pb-[1.875rem] gap-[1.875rem]">
             {/*header*/}
             <div
                 className="flex justify-start items-center relative gap-2.5 p-2.5 bg-transparent">

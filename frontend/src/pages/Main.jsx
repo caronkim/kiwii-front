@@ -28,18 +28,18 @@ export default function Main() {
 
     return (
         <div
-            className="bg-gray-100 w-screen h-screen flex flex-col px-[0.625rem] pt-[0.625rem] pb-[1.875rem] gap-[0.625rem]">
+            className="bg-gray-100 w-full min-h-dvh flex flex-col px-[0.625rem] pt-[0.625rem] pb-[1.875rem] gap-[0.625rem]">
             <div className="flex flex-row p-[0.625rem] text-xl">
                 <div className="font-semibold">{user.username ?? ""}</div>
                 <div className="font-normal">님 환영합니다!</div>
             </div>
             <div className="flex flex-col bg-white w-full h-auto gap-[0.625rem] p-[0.625rem] rounded-[1.875rem]">
-                <div onClick={() => navigate("/point")} className="flex flex-row p-[0.625rem] gap-[0.625rem]">
+                <div onClick={() => navigate("/point")} className="flex flex-row items-center p-[0.625rem] gap-[0.625rem]">
                     {/* 포인트 로고 */}
                     <div className="h-full aspect-square rounded-[100%] bg-[#fad265] p-[0.3rem]">
-                        <img src={pointIcon} alt="pointIcon" className="w-full h-full"/>
+                        <img src={pointIcon} alt="pointIcon" className="w-[30px] h-[30px]"/>
                     </div>
-                    <div className="flex flex-row p-[0.625rem] gap-[0.625rem] w-full">
+                    <div className="flex flex-row p-[0.625rem] gap-[0.625rem] flex-1">
                         <div className="font-normal">
                             포인트
                         </div>
@@ -74,12 +74,12 @@ export default function Main() {
                     </div>
 
                 </div>
-                <Link to="/rank" className="flex flex-row p-[0.625rem] gap-[0.625rem]">
+                <Link to="/rank" className="flex flex-row items-center p-[0.625rem] gap-[0.625rem]">
                     {/* 랭킹 로고 */}
                     <div className="h-full aspect-square rounded-[100%] bg-[#a0eeab] p-[0.3rem]">
-                        <img src={rankIcon} alt="rankIcon" className="w-full h-full"/>
+                        <img src={rankIcon} alt="rankIcon" className="w-[30px] h-[30px]"/>
                     </div>
-                    <div className="flex flex-row p-[0.625rem] gap-[0.625rem] w-full">
+                    <div className="flex flex-row p-[0.625rem] gap-[0.625rem] flex-1">
                         <div className="font-normal">
                             랭킹
                         </div>
